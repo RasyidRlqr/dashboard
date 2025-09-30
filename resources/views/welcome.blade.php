@@ -7,9 +7,47 @@
     
     <style>
         body{
-            background-color: lightblue;
+            background: white;
+            color: black;
+            font-family: sans-serif;
+            cursor: none; /* sembunyikan cursor default */
         }
-        .loading {
+
+        /* Dark mode styles */
+        [data-bs-theme="dark"] {
+            background: #121212;
+            color: white;
+        }
+
+        [data-bs-theme="dark"] footer {
+            color: #ccc;
+        }
+
+        /* cursor custom */
+        .cursor__ball {
+          position: fixed;
+          top: 0;
+          left: 0;
+          mix-blend-mode: difference;
+          z-index: 1000;
+          pointer-events: none;
+        }
+        .cursor__ball circle {
+          fill: #f7f8fa;
+        }
+       
+        .offcanvas .cursor__ball {
+           position: fixed;
+           top: 0;
+           left: 0;
+           mix-blend-mode: difference;
+           z-index: 2000; /* lebih tinggi dari offcanvas */
+           pointer-events: none;
+        }
+        .offcanvas .cursor__ball circle {
+          fill: #f7f8fa;
+        }
+         .loading {
             position: fixed;
             top: 0;
             left: 0;
@@ -26,30 +64,68 @@
             height: 100%;
             object-fit: cover;
         }
-        .content {
-            display: none;
+        
+
+        @media only screen and (max-width:800px) {
+          .main { width: 80%; padding: 0; }
+          .right { width: 100%; }
+        }
+        @media only screen and (max-width:500px) {
+          .menu, .main, .right { width: 100%; }
         }
     </style>
 
-    <title>Welcome</title>
+    <title>My Blog</title>
   </head>
   <body>
-<div class="loading">
+
+<div class="content">
+
+  <!-- cursor custom -->
+  <div class="cursor">
+    <div class="cursor__ball cursor__ball--big">
+      <svg height="30" width="30">
+        <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
+      </svg>
+    </div>
+    <div class="cursor__ball cursor__ball--small">
+      <svg height="10" width="10">
+        <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
+      </svg>
+    </div>
+  </div>
+  <!-- end cursor -->
+
+  <div class="loading">
     <video id="loading-video" muted autoplay>
         <source src="/storage/loading.mp4" type="video/mp4">
     </video>
 </div>
 
-<div class="content">
-
-
-
-
-
+  {{-- konten asli tetap --}}
+  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">All nav</button>
+  <button id="settingsBtn" class="btn btn-secondary ms-2" style="font-size:20px;">⚙️</button>
 
 
   
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">All nav</button>
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Theme</h6>
+        <button id="lightModeBtn" class="btn btn-outline-warning me-2" style="font-size:20px;">☀️ Light</button>
+        <button id="darkModeBtn" class="btn btn-outline-dark" style="font-size:20px;">🌙 Dark</button>
+        <hr>
+        <h6>Music</h6>
+        <button id="musicBtn" class="btn btn-outline-primary" style="font-size:44px;">&#9835;</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
@@ -69,7 +145,7 @@
     <a href="https://github.com/RasyidRlqr"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
   <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
 </svg> <i><b>My Github</b></i></a><br>
-    <a href=""></a>
+    <audio id="player" src="/storage/Sunova.mp3"></audio>
     <br>
     <br>
     <br>
@@ -90,23 +166,93 @@
     <br>
   <br>
     <br>
-    <br>
-    <br>
+   
   
+<footer><i>-Created using <a href="https://backpackforlaravel.com/">backpack laravel </a><br>
+        -By Ikhwan Rasyid
+</i></footer>
+	    
+</div>
 
-	    </div>
 
-        <footer>-Created using <a href="https://backpackforlaravel.com/">backpack laravel </a><br>
-                -By Ikhwan Rasyid
-        </footer>
-    <script>
-    document.getElementById('loading-video').addEventListener('ended', function() {
-        document.querySelector('.loading').style.display = 'none';
-        document.querySelector('.content').style.display = 'block';
-    });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+<script>
+  document.getElementById('loading-video')?.addEventListener('ended', function() {
+      document.querySelector('.loading').style.display = 'none';
+      document.querySelector('.content').style.display = 'block';
+  });
+</script>
+
+<script>
+  const btn = document.getElementById("musicBtn");
+  const player = document.getElementById("player");
+  let isPlaying = false;
+
+  btn?.addEventListener("click", () => {
+    if (!isPlaying) {
+      player.play();
+      btn.innerHTML = "&#9836;";
+    } else {
+      player.pause();
+      btn.innerHTML = "&#9835;";
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
+
+<script>
+document.getElementById('settingsBtn').addEventListener('click', () => {
+  const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+  modal.show();
+});
+
+const lightModeBtn = document.getElementById('lightModeBtn');
+const darkModeBtn = document.getElementById('darkModeBtn');
+
+lightModeBtn.addEventListener('click', () => {
+  document.documentElement.setAttribute('data-bs-theme', 'light');
+  localStorage.setItem('theme', 'light');
+});
+
+darkModeBtn.addEventListener('click', () => {
+  document.documentElement.setAttribute('data-bs-theme', 'dark');
+  localStorage.setItem('theme', 'dark');
+});
+
+// On load
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-bs-theme', savedTheme);
+} else {
+  document.documentElement.setAttribute('data-bs-theme', 'light');
+}
+</script>
+
+<!-- GSAP untuk animasi cursor -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  const bigBall = document.querySelector('.cursor__ball--big');
+const smallBall = document.querySelector('.cursor__ball--small');
+
+document.body.addEventListener('mousemove', e => {
+  gsap.to(bigBall, {duration:0.4, x: e.pageX - 15, y: e.pageY - 15});
+  gsap.to(smallBall, {duration:0.1, x: e.pageX - 5, y: e.pageY - 7});
+});
+
+// hover effect untuk tombol/link di offcanvas
+const hoverables = document.querySelectorAll('.offcanvas a, .offcanvas button, .nav-area a, .nav-area button');
+hoverables.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    gsap.to(bigBall, {duration:0.3, scale:4});
+  });
+  el.addEventListener('mouseleave', () => {
+    gsap.to(bigBall, {duration:0.3, scale:1});
+  });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
