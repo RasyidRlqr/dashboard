@@ -1,0 +1,54 @@
+/* Custom dark mode fixes for Backpack */
+
+[data-bs-theme="dark"] {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .navbar,
+[data-bs-theme="dark"] .card,
+[data-bs-theme="dark"] .dropdown-menu,
+[data-bs-theme="dark"] .btn,
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .table {
+    background-color: #2d3748 !important;
+    color: #ffffff !important;
+    border-color: #4a5568 !important;
+}
+
+[data-bs-theme="dark"] .navbar-brand,
+[data-bs-theme="dark"] .navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .card-header,
+[data-bs-theme="dark"] .card-body,
+[data-bs-theme="dark"] .card-footer {
+    background-color: #2d3748 !important;
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .table thead th {
+    background-color: #4a5568 !important;
+    color: #ffffff !important;
+    border-color: #718096 !important;
+}
+
+[data-bs-theme="dark"] .table tbody tr {
+    background-color: #2d3748 !important;
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .table tbody tr:hover {
+    background-color: #4a5568 !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-primary {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-primary:hover {
+    background-color: #ffffff !important;
+    color: #2d3748 !important;
+}
